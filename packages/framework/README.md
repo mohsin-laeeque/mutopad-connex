@@ -6,10 +6,10 @@ Connex Framework is a library implements Connex interface.
 
 ## Installation
 
-It always works along with the package [@vechain/connex-driver](https://github.com/vechain/connex/tree/master/packages/driver).
+It always works along with the package [@mutopad/connex-driver](https://github.com/vechain/connex/tree/master/packages/driver).
 
 ```sh
-npm i @vechain/connex-framework @vechain/connex-driver
+npm i @mutopad/connex-framework @mutopad/connex-driver
 ```
 
 ## Usage
@@ -18,8 +18,8 @@ npm i @vechain/connex-framework @vechain/connex-driver
 To create a Framework instance:
 
 ```typescript
-import { Framework } from '@vechain/connex-framework'
-import { Driver, SimpleNet } from '@vechain/connex-driver'
+import { Framework } from '@mutopad/connex-framework'
+import { Driver, SimpleNet } from '@mutopad/connex-driver'
 
 const net = new SimpleNet('http://localhost:8669/')
 const driver = await Driver.connect(net)

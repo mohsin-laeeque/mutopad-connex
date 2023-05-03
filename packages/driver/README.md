@@ -8,7 +8,7 @@ This library implement Connex.Driver, which drives Connex Framework.
 
 ```bash
 # install driver along with framework
-npm i @vechain/connex-framework @vechain/connex-driver
+npm i @mutopad/connex-framework @mutopad/connex-driver
 ```
 
 ## Usage
@@ -17,8 +17,8 @@ The [REPL playground](https://github.com/vechain/connex/tree/master/packages/rep
 
 
 ```typescript
-import { Framework } from '@vechain/connex-framework'
-import { Driver, SimpleNet, SimpleWallet } from '@vechain/connex-driver'
+import { Framework } from '@mutopad/connex-framework'
+import { Driver, SimpleNet, SimpleWallet } from '@mutopad/connex-driver'
 
 const wallet = new SimpleWallet()
 // add account by importing private key

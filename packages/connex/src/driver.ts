@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { DriverNoVendor, SimpleNet } from '@vechain/connex-driver'
+import { DriverNoVendor, SimpleNet } from '@mutopad/connex-driver'
 import { loadLibrary } from './script-loader'
-import type * as ConnexWalletBuddy from '@vechain/connex-wallet-buddy'
+import type * as ConnexWalletBuddy from '@mutopad/connex-wallet-buddy'
 import randomBytes from 'randombytes'
 import { blake2b256 } from 'thor-devkit'
 
-const BUDDY_SRC = 'https://unpkg.com/@vechain/connex-wallet-buddy@0.1'
+const BUDDY_SRC = 'https://unpkg.com/@mutopad/connex-wallet-buddy@0.1'
 const BUDDY_LIB_NAME = 'ConnexWalletBuddy'
 
 type ConnexSigner = Pick<Connex.Driver, 'signTx' | 'signCert'>

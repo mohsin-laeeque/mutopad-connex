@@ -1,4 +1,4 @@
-import '@vechain/connex-framework/dist/driver-interface'
+import '@mutopad/connex-framework/dist/driver-interface'
 import Deferred from './deferred'
 import * as Helper from './helper'
 

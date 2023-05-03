@@ -1,8 +1,8 @@
-import { Framework } from '@vechain/connex-framework'
+import { Framework } from '@mutopad/connex-framework'
 import { genesisBlocks } from './config'
 import { compat1, Connex1 } from './compat'
 import { createFull, DriverVendorOnly, ExtensionSigner } from './driver'
-import { newVendor } from '@vechain/connex-framework'
+import { newVendor } from '@mutopad/connex-framework'
 
 declare global {
     interface Window {

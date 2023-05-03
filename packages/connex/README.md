@@ -12,7 +12,7 @@ Just include the CDN link within a script tag. `Connex` will then be registered 
 
 ```html
 <!-- install the latest v2 -->
-<script src="https://unpkg.com/@vechain/connex@2" />
+<script src="https://unpkg.com/@mutopad/connex@2" />
 ```
 
 ### NPM
@@ -20,11 +20,11 @@ Just include the CDN link within a script tag. `Connex` will then be registered 
 It's recommended when your project is a bit large.
 
 ```sh
-npm i @vechain/connex
+npm i @mutopad/connex
 ```
 
 ```ts
-import Connex from '@vechain/connex'
+import Connex from '@mutopad/connex'
 ```
 
 ## Startup
@@ -70,7 +70,7 @@ const vendor = new Connex.Vendor('main') //'main','test' or genesis ID if it's p
 
 ## Using in Node.js environment
 
-This package, **@vechain/connex** is designed only work in the browser, if you are interested in running it in Node.js, try [@vechain/connex-framework](https://github.com/vechain/connex/tree/master/packages/framework).
+This package, **@mutopad/connex** is designed only work in the browser, if you are interested in running it in Node.js, try [@mutopad/connex-framework](https://github.com/vechain/connex/tree/master/packages/framework).
 
 ## License
 

@@ -11,7 +11,7 @@ It requires NodeJS version >= 10
 ## Installation
 
 ```bash
-$ npm i -g @vechain/connex-repl
+$ npm i -g @mutopad/connex-repl
 ```
 
 Startup to connect with local thor node by default (http://localhost:8669/)

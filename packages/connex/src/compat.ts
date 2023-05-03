@@ -1,5 +1,5 @@
 import { abi } from 'thor-devkit'
-import * as R from '@vechain/connex-framework/dist/rules'
+import * as R from '@mutopad/connex-framework/dist/rules'
 
 /** ports connex v1 to connex v2 */
 export function compat1(connex1: Connex1): Connex {

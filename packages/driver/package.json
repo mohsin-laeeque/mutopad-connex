@@ -31,9 +31,9 @@
   },
   "homepage": "https://github.com/vechain/connex/tree/marster/packages/driver/#readme",
   "devDependencies": {
+    "@mutopad/connex-framework": "^2.0.12",
     "@types/lru-cache": "^5.1.0",
-    "@types/ws": "^6.0.1",
-    "@mutopad/connex-framework": "^2.0.12"
+    "@types/ws": "^6.0.1"
   },
   "dependencies": {
     "@mutopad/connex-types": "^2.0.12",

@@ -1,6 +1,6 @@
 {
   "name": "@mutopad/connex-framework",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "A library implements VeChain Connex interface",
   "main": "dist/index.js",
   "module": "esm/index.js",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vechain/connex.git"
+    "url": "git+https://github.com/mohsin-laeeque/mutopad-connex.git"
   },
   "keywords": [
     "Connex",
@@ -28,14 +28,15 @@
   "author": "qianbin",
   "license": "LGPL-3.0",
   "bugs": {
-    "url": "https://github.com/vechain/connex/issues"
+    "url": "https://github.com/mohsin-laeeque/mutopad-connex/issues"
   },
-  "homepage": "https://github.com/vechain/connex/tree/master/packages/framework#readme",
+  "homepage": "https://github.com/mohsin-laeeque/mutopad-connex/tree/master/packages/framework#readme",
   "dependencies": {
-    "@mutopad/connex-types": "^2.0.12",
+    "@mutopad/connex-types": "^0.0.5",
     "bignumber.js": "^7.2.1",
     "thor-devkit": "^2.0.5",
     "validator-ts": "^0.9.1"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "gitHead": "6653031464b9d51a1a55ebf3a8775bbac35263e3"
 }

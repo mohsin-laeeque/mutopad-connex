@@ -1,6 +1,6 @@
 {
   "name": "@mutopad/connex-driver",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Connex framework driver implementation",
   "main": "dist/index.js",
   "module": "esm/index.js",
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vechain/connex.git"
+    "url": "git+https://github.com/mohsin-laeeque/mutopad-connex.git"
   },
   "keywords": [
     "Connex",
@@ -27,16 +27,16 @@
   "author": "qianbin",
   "license": "LGPL-3.0",
   "bugs": {
-    "url": "https://github.com/vechain/connex/issues"
+    "url": "https://github.com/mohsin-laeeque/mutopad-connex/issues"
   },
-  "homepage": "https://github.com/vechain/connex/tree/marster/packages/driver/#readme",
+  "homepage": "https://github.com/mohsin-laeeque/mutopad-connex/tree/marster/packages/driver/#readme",
   "devDependencies": {
-    "@mutopad/connex-framework": "^2.0.12",
+    "@mutopad/connex-framework": "^0.0.3",
     "@types/lru-cache": "^5.1.0",
     "@types/ws": "^6.0.1"
   },
   "dependencies": {
-    "@mutopad/connex-types": "^2.0.12",
+    "@mutopad/connex-types": "^0.0.5",
     "axios": "^0.21.1",
     "bignumber.js": "^7.2.1",
     "isomorphic-ws": "^4.0.1",
@@ -44,5 +44,6 @@
     "thor-devkit": "^2.0.5",
     "ws": "^7.1.0"
   },
-  "sideEffects": false
+  "sideEffects": false,
+  "gitHead": "6653031464b9d51a1a55ebf3a8775bbac35263e3"
 }

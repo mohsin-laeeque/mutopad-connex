@@ -22,16 +22,17 @@
   "license": "LGPL-3.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vechain/connex.git"
+    "url": "git+https://github.com/mohsin-laeeque/mutopad-connex.git"
   },
   "bugs": {
-    "url": "https://github.com/vechain/connex/issues"
+    "url": "https://github.com/mohsin-laeeque/mutopad-connex/issues"
   },
-  "homepage": "https://github.com/vechain/connex/tree/master/packages/repl#readme",
+  "homepage": "https://github.com/mohsin-laeeque/mutopad-connex/tree/master/packages/repl#readme",
   "dependencies": {
-    "@mutopad/connex-driver": "^2.0.12",
-    "@mutopad/connex-framework": "^2.0.12",
+    "@mutopad/connex-driver": "^0.0.1",
+    "@mutopad/connex-framework": "^0.0.1",
     "bignumber.js": "^9.0.0",
     "repl.history": "^0.1.4"
-  }
+  },
+  "gitHead": "6653031464b9d51a1a55ebf3a8775bbac35263e3"
 }

@@ -89,10 +89,12 @@ async function sign<T extends 'tx' | 'cert'>(
     msg: T extends 'tx' ? Connex.Vendor.TxMessage : Connex.Vendor.CertMessage,
     options: T extends 'tx' ? Connex.Driver.TxOptions : Connex.Driver.CertOptions,
     genesisId: string,
+    mutopadId: string,
     nonce: () => string,
     blake2b256: (val: string) => string,
     tosUrl: string
 ): Promise<T extends 'tx' ? Connex.Vendor.TxResponse : Connex.Vendor.CertResponse> {
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     if (_abort) {
         _abort.reject(new Error('aborted'))
     }
@@ -109,11 +111,12 @@ async function sign<T extends 'tx' | 'cert'>(
         },
         nonce: nonce()
     }
+    // console.log("Param Request: " ,mutopadId)
+    // console.log("Origional Request: " ,req)
     const json = JSON.stringify(req)
     const rid = blake2b256(json)
-
     const src = new URL(rid, tosUrl).href
-    const helper = Helper.connect(src)
+    const helper = Helper.connect(src, mutopadId)
 
     let accepted = false
 
@@ -128,6 +131,7 @@ async function sign<T extends 'tx' | 'cert'>(
                     sleep(1500)
                 ])
                 !accepted && helper.show()
+            // eslint-disable-next-line no-empty
             } catch { }
         })()
 
@@ -137,6 +141,7 @@ async function sign<T extends 'tx' | 'cert'>(
                 accepted = true
                 helper.hide()
                 onAccepted && onAccepted()
+            // eslint-disable-next-line no-empty
             } catch { }
         })()
 
@@ -157,20 +162,23 @@ async function sign<T extends 'tx' | 'cert'>(
  * @param genesisId the genesis id of requests binding to
  * @param nonce random bytes generator
  * @param blake2b256 blake2b256 hash function
+ * @param ext_id extention id from the extention
  * @param tosUrl the optional customized tos url
  */
 export function create(
     genesisId: string,
     nonce: () => string,
     blake2b256: (val: string) => string,
+    ext_id: string,
     tosUrl?: string
 ): Pick<Connex.Driver, 'signTx' | 'signCert'> {
+    // console.log("Recivinig the extension ID: " + ext_id);
     return {
         signTx(msg: Connex.Vendor.TxMessage, options: Connex.Driver.TxOptions): Promise<Connex.Vendor.TxResponse> {
-            return sign('tx', msg, options, genesisId, nonce, blake2b256, tosUrl || DEFAULT_TOS_URL)
+            return sign('tx', msg, options, genesisId, ext_id, nonce, blake2b256,tosUrl || DEFAULT_TOS_URL)
         },
         signCert(msg: Connex.Vendor.CertMessage, options: Connex.Driver.CertOptions): Promise<Connex.Vendor.CertResponse> {
-            return sign('cert', msg, options, genesisId, nonce, blake2b256, tosUrl || DEFAULT_TOS_URL)
+            return sign('cert', msg, options, genesisId, ext_id , nonce, blake2b256, tosUrl || DEFAULT_TOS_URL,)
         }
     }
 }

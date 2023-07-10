@@ -5,7 +5,7 @@ import type * as ConnexWalletBuddy from '@mutopad/connex-wallet-buddy'
 import randomBytes from 'randombytes'
 import { blake2b256 } from 'thor-devkit'
 
-const BUDDY_SRC = 'https://unpkg.com/@mutopad/connex-wallet-buddy@0.1'
+const BUDDY_SRC = 'https://unpkg.com/@mutopad/connex-wallet-buddy@0.0.18'
 const BUDDY_LIB_NAME = 'ConnexWalletBuddy'
 
 type ConnexSigner = Pick<Connex.Driver, 'signTx' | 'signCert'>
@@ -13,11 +13,16 @@ export type ExtensionSigner = {
     newConnexSigner: (genesisId: string) => ConnexSigner
 }
 
+export type MutopadSigner = {
+    enable: () => Promise<string>
+}
+
 /** the driver implements vendor methods only */
 export class DriverVendorOnly implements Connex.Driver {
     private readonly signer: Promise<ConnexSigner>
-    constructor(genesisId: string, useExtension: boolean) {
-        this.signer = this.initSigner(genesisId, useExtension)
+    constructor(genesisId: string, useExtension: boolean, ext_id?: string) {
+        // console.log("extID passed to constructor: ",ext_id)
+        this.signer = this.initSigner(genesisId, useExtension, ext_id)
     }
     get genesis(): Connex.Thor.Block { throw new Error('not implemented') }
     get head(): Connex.Thor.Status['head'] { throw new Error('not implemented') }
@@ -39,8 +44,9 @@ export class DriverVendorOnly implements Connex.Driver {
         return this.signer.then(b => b.signCert(msg, options))
     }
 
-    private initSigner(genesisId: string, useExtension: boolean): Promise<ConnexSigner> {
-        if (useExtension) {
+    private initSigner(genesisId: string, useExtension: boolean, ext_id?: string): Promise<ConnexSigner> {
+        // console.log("initSigner called with " + ext_id);
+        if (useExtension && !ext_id) {
             return Promise.resolve((window as Required<globalThis.Window>).vechain.newConnexSigner(genesisId))
         }
 
@@ -50,7 +56,8 @@ export class DriverVendorOnly implements Connex.Driver {
         ).then(lib => lib.create(
             genesisId,
             () => randomBytes(16).toString('hex'),
-            val => blake2b256(val).toString('hex')
+            val => blake2b256(val).toString('hex'),
+            ext_id
         ))
     }
 }
@@ -58,9 +65,11 @@ export class DriverVendorOnly implements Connex.Driver {
 /** fully implemented Connex.Driver */
 class FullDriver extends DriverNoVendor {
     private readonly vd: DriverVendorOnly
-    constructor(node: string, genesis: Connex.Thor.Block, useExtension: boolean) {
+
+    constructor(node: string, genesis: Connex.Thor.Block, useExtension: boolean, ext_id?: string) {
+        // console.log("Constructing Vender Driver: ", ext_id, "useExtension", useExtension);
         super(new SimpleNet(node), genesis)
-        this.vd = new DriverVendorOnly(genesis.id, useExtension)
+        this.vd = new DriverVendorOnly(genesis.id, useExtension, ext_id )
     }
     signTx(msg: Connex.Vendor.TxMessage, options: Connex.Driver.TxOptions): Promise<Connex.Vendor.TxResponse> {
         return this.vd.signTx(msg, options)
@@ -77,16 +86,17 @@ const cache: Record<string, FullDriver> = {}
  * @param node the url of thor node
  * @param genesis the enforced genesis block
  */
-export function createFull(node: string, genesis: Connex.Thor.Block, useExtension: boolean): Connex.Driver {
+export function createFull(node: string, genesis: Connex.Thor.Block, useExtension: boolean, ext_id?: string): Connex.Driver {
     const key = blake2b256(JSON.stringify({
         node,
         genesis,
-        useExtension
+        useExtension,
     })).toString('hex')
 
     let driver = cache[key]
+    // console.log("Full created : ", useExtension, ext_id);
     if (!driver) {
-        cache[key] = driver = new FullDriver(node, genesis, useExtension)
+        cache[key] = driver = new FullDriver(node, genesis, useExtension, ext_id)
     }
     return driver
 }

@@ -5,7 +5,8 @@ export const browser = detect()
 
 const LITE_WALLET_URL = 'https://lite.sync.vecha.in/'
 
-function openLiteWallet(src: string): void {
+
+function openLiteWallet(src: string, _id: string): void {
     const options = (() => {
         switch (browser && browser.os) {
             case 'iOS':
@@ -15,14 +16,16 @@ function openLiteWallet(src: string): void {
             default:
                 return {
                     target: `sync|${window.location.host}`,
-                    features: 'width=360,height=640,resizable,scrollbars=yes,dependent,modal'
+                    features: 'width=380,height=640,resizable,scrollbars=yes,dependent,modal'
                 }
         }
     })()
-
+    // console.log("ID From Browser: ", _id);
+    const final_url = _id !== undefined ? `chrome-extension://${_id}/www/index.html` : LITE_WALLET_URL
+    // console.log("URL From Browser Final: ", final_url)
     setTimeout(() => {
         window.open(
-            new URL(`#/sign?src=${encodeURIComponent(src)}`, LITE_WALLET_URL).href,
+            new URL(`#/sign?src=${encodeURIComponent(src)}`, final_url).href,
             options.target,
             options.features)
     })
@@ -59,20 +62,25 @@ interface Helper {
     hide(): void
 }
 
-export function connect(src: string): Helper {
+export function connect(src: string, _id: string): Helper {
     try {
         const href = `connex:sign?src=${encodeURIComponent(src)}`
         const os = (browser && browser.os) || ''
-        if (os === 'Mac OS' || os === 'Linux' || os.startsWith('Windows')) {
+        // console.log("Logging in ID >>>>...", _id)
+        // console.log("logical statement: ", _id === undefined && os === 'Mac OS' || os === 'Linux' || os.startsWith('Windows'), os)
+        if (!_id && (os === 'Mac OS' || os === 'Linux' || os.startsWith('Windows'))) {
             // desktop oses have native sync2 supported, try to launch in hidden iframe
-            getHiddenIframe().contentWindow!.location.href = href
+            getHiddenIframe().contentWindow.location.href = href
         } else {
-            openLiteWallet(src)
+            openLiteWallet(src, _id)
             return {
+                // eslint-disable-next-line @typescript-eslint/no-empty-function
                 show() { },
+                // eslint-disable-next-line @typescript-eslint/no-empty-function
                 hide() { }
             }
         }
+    // eslint-disable-next-line no-empty
     } catch { }
 
     const actionFrame = createActionIframe()
@@ -87,7 +95,7 @@ export function connect(src: string): Helper {
                     }
                     return
                 case 'lite':
-                    openLiteWallet(src)
+                    openLiteWallet(src, _id)
                     return
                 case 'install':
                     window.open('https://sync.vecha.in/')

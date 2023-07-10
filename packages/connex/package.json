@@ -1,6 +1,6 @@
 {
   "name": "@mutopad/connex",
-  "version": "0.0.1",
+  "version": "0.0.42",
   "description": "Standard interface to connect DApp with VeChain and user",
   "main": "dist/connex.js",
   "unpkg": "dist/connex.min.js",
@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vechain/connex.git"
+    "url": "git+https://github.com/mohsin-laeeque/mutopad-connex/.git"
   },
   "keywords": [
     "connex",
@@ -29,11 +29,11 @@
   "author": "qianbin",
   "license": "LGPL-3.0",
   "bugs": {
-    "url": "https://github.com/vechain/connex/issues"
+    "url": "https://github.com/mohsin-laeeque/mutopad-connex//issues"
   },
-  "homepage": "https://github.com/vechain/connex/tree/master/packages/connex/#readme",
+  "homepage": "https://github.com/mohsin-laeeque/mutopad-connex/tree/master/packages/connex/#readme",
   "devDependencies": {
-    "@mutopad/connex-wallet-buddy": "^0.1.0",
+    "@mutopad/connex-wallet-buddy": "^0.0.7",
     "@types/randombytes": "^2.0.0",
     "buffer": "^5.6.1",
     "crypto-browserify": "^3.12.0",
@@ -43,9 +43,10 @@
     "webpack-cli": "^4.1.0"
   },
   "dependencies": {
-    "@mutopad/connex-driver": "^2.0.12",
-    "@mutopad/connex-framework": "^2.0.12",
+    "@mutopad/connex-driver": "^0.0.2",
+    "@mutopad/connex-framework": "^0.0.3",
     "randombytes": "^2.1.0",
     "thor-devkit": "^2.0.5"
-  }
+  },
+  "gitHead": "6653031464b9d51a1a55ebf3a8775bbac35263e3"
 }

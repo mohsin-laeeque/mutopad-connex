@@ -13,7 +13,7 @@ npm i @mutopad/connex-framework @mutopad/connex-driver
 
 ## Usage
 
-The [REPL playground](https://github.com/vechain/connex/tree/master/packages/repl) is a good start.
+The [REPL playground](https://github.com/mohsin-laeeque/mutopad-connex/tree/master/packages/repl) is a good start.
 
 
 ```typescript

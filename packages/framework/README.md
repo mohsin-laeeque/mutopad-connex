@@ -6,7 +6,7 @@ Connex Framework is a library implements Connex interface.
 
 ## Installation
 
-It always works along with the package [@mutopad/connex-driver](https://github.com/vechain/connex/tree/master/packages/driver).
+It always works along with the package [@mutopad/connex-driver](https://github.com/mohsin-laeeque/mutopad-connex/tree/master/packages/driver).
 
 ```sh
 npm i @mutopad/connex-framework @mutopad/connex-driver

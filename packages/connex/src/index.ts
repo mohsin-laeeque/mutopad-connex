@@ -1,7 +1,7 @@
 import { Framework } from '@mutopad/connex-framework'
 import { genesisBlocks } from './config'
 import { compat1, Connex1 } from './compat'
-import { createFull, DriverVendorOnly, ExtensionSigner } from './driver'
+import { createFull, DriverVendorOnly, ExtensionSigner, MutopadSigner } from './driver'
 import { newVendor } from '@mutopad/connex-framework'
 
 declare global {
@@ -10,8 +10,11 @@ declare global {
         connex?: Connex1;
         /* injected by extension wallet */
         vechain?: ExtensionSigner;
+        /* injected by mutopad extension wallet */
+        mutopad?: MutopadSigner;
     }
 }
+
 
 /** convert options.network to Connex.Thor.Block */
 function normalizeNetwork(n: Options['network']) {
@@ -40,10 +43,11 @@ function normalizeGenesisId(id?: 'main' | 'test' | string) {
     throw new Error('invalid genesis id')
 }
 
+
 /** Vendor class which can work standalone to provides signing-services only */
 class VendorClass implements Connex.Vendor {
     sign !: Connex.Vendor['sign']
-    constructor(genesisId?: 'main' | 'test' | string, opts?: Pick<Options, 'noV1Compat' | 'noExtension'>) {
+    constructor(genesisId?: 'main' | 'test' | string, opts?: Pick<Options, 'noV1Compat' | 'noExtension' | 'mutopadId'>) {
         genesisId = normalizeGenesisId(genesisId)
         if (!(opts && opts.noV1Compat)) {
             try {
@@ -60,7 +64,7 @@ class VendorClass implements Connex.Vendor {
         }
 
         // detect the extension injected vechain
-        const useExtension = !(opts && opts.noExtension) && !!window.vechain
+        const useExtension = !(opts && opts.noExtension) && !!window.vechain && !opts.mutopadId
 
         const driver = new DriverVendorOnly(genesisId, useExtension)
         const vendor = newVendor(driver)
@@ -88,6 +92,9 @@ export type Options = {
 
     /** the flag to disable compatible vechain browser extensions */
     noExtension?: boolean
+
+    /** the current extention id */
+    mutopadId?: string
 }
 
 /** Connex class */
@@ -96,8 +103,10 @@ class ConnexClass implements Connex {
 
     thor!: Connex.Thor
     vendor!: Connex.Vendor
+    mutopad?: string
 
-    constructor(opts: Options) {
+    constructor (opts: Options) {
+        // console.log("Options passsed by constructor: " , opts)
         const genesis = normalizeNetwork(opts.network)
         if (!opts.noV1Compat) {
             try {
@@ -112,15 +121,18 @@ class ConnexClass implements Connex {
                 }
             } catch { /**/ }
         }
-
+        // console.log("Check if current extetnion supports mutopad", window.mutopad)
         // detect the extension injected vechain
-        const useExtension = !opts.noExtension && !!window.vechain
-        const driver = createFull(opts.node, genesis, useExtension)
-        const framework = new Framework(driver)
-        return {
-            get thor() { return framework.thor },
-            get vendor() { return framework.vendor }
-        }
+        const useExtension = !opts.noExtension && !opts.mutopadId 
+            // console.log("Extension ID for mutopad:", opts, "useExtension", useExtension);
+            const driver = createFull(opts.node, genesis, useExtension, opts.mutopadId)
+            const currentId = opts.mutopadId
+            const framework = new Framework(driver)
+            return {
+                get thor() { return framework.thor },
+                get vendor() { return framework.vendor },
+                get mutopad() { return currentId},
+            }
     }
 }
 

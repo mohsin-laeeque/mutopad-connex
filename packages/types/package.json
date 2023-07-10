@@ -1,6 +1,6 @@
 {
   "name": "@mutopad/connex-types",
-  "version": "0.0.1",
+  "version": "0.0.5",
   "description": "Standard interface to connect DApp with VeChain and user",
   "main": "",
   "types": "index",
@@ -10,7 +10,7 @@
   "scripts": {},
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vechain/connex.git"
+    "url": "git+https://github.com/mohsin-laeeque/mutopad-connex.git"
   },
   "keywords": [
     "connex",
@@ -21,7 +21,8 @@
   "author": "qianbin",
   "license": "LGPL-3.0",
   "bugs": {
-    "url": "https://github.com/vechain/connex/issues"
+    "url": "https://github.com/mohsin-laeeque/mutopad-connex/issues"
   },
-  "homepage": "https://github.com/vechain/connex/tree/master/packages/types/#readme"
+  "homepage": "https://github.com/mohsin-laeeque/mutopad-connex/tree/master/packages/types/#readme",
+  "gitHead": "6653031464b9d51a1a55ebf3a8775bbac35263e3"
 }
